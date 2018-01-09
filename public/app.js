@@ -1,16 +1,28 @@
-$("#articles").empty();
 // Grab the articles as a json
 $.getJSON("/articles", function(data) {
     // For each one
     for (var i = 0; i < data.length; i++) {
         // Display the apropos information on the page
-        $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+        $("#articles").append("<p saved = false data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>" + "<a class='btn btn-primary btn-2' role='button' id='makeNote'> Make Note </a>" + "<a class='btn btn-primary btn-l' role='button' id='saveArticle'> Save Article</a>");
     }
 });
 
+$(document).on("click", "#saveArticle", function() {
+
+    $('p').attr('saved', true);
+
+    console.log($("p").attr('saved'));
+
+});
+
+$(document).on("click", "#savedArticles", function() {
+
+    $("#articles").empty();
+
+});
 
 // Whenever someone clicks a p tag
-$(document).on("click", "p", function() {
+$(document).on("click", "#makeNote", function() {
     // Empty the notes from the note section
     $("#notes").empty();
     // Save the id from the p tag
